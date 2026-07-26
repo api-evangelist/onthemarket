@@ -1,0 +1,119 @@
+aid: onthemarket
+url: https://raw.githubusercontent.com/api-evangelist/onthemarket/refs/heads/main/apis.yml
+name: OnTheMarket
+kind: company
+description: >-
+  OnTheMarket is the third-largest residential property portal in the United
+  Kingdom, operating onthemarket.com. It was founded in 2013 by Agents' Mutual
+  Limited as an agent-owned challenger to Rightmove and Zoopla, listed on AIM as
+  OnTheMarket plc, and was acquired outright by CoStar Group in December 2023 for
+  approximately GBP 99 million. In a market with no MLS and no cooperative
+  listing standard, OnTheMarket sits at the demand end of the value chain:
+  consumers search the portal, and listings arrive from member estate agents'
+  CRM systems rather than from a shared data pool. Its API posture is honest and
+  narrow. There is no public developer portal — developer., developers., api.
+  and docs.onthemarket.com do not resolve, and /developers, /api, /docs,
+  /openapi.json, /swagger.json and /api-docs all return 404 on the main site.
+  What does exist is a member-only integration surface: the OnTheMarket Real
+  Time Datafeed (RTDF), a Rightmove-RTDF-compatible feed API served from the
+  live, OnTheMarket-operated host realtime-api.onthemarket.com, used by agency
+  CRM vendors to push listings and pull branch enquiries on behalf of member
+  agents. No machine-readable contract for it is published anywhere;
+  OnTheMarket's developer guide is distributed under agreement, and every path
+  on the host returns 404 to an anonymous caller. There is no RESO Web API or
+  Data Dictionary certification, no OData $metadata document and no Universal
+  Property Identifier anywhere in the stack — RESO is a North American
+  construct and the UK has never adopted it, so "certified but unreachable"
+  does not apply here; there is no certification layer in this market at all.
+  OnTheMarket publishes no open data. The genuinely open UK property layer
+  belongs to the public sector — HM Land Registry Price Paid Data and Ordnance
+  Survey — and none of it comes from the portals. OnTheMarket's own Terms of
+  Use go further than most and expressly forbid automated access to any page
+  other than the home page.
+accessModel:
+  pricing: paid
+  onboarding: membership-required
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · OnTheMarket agent membership and a data-feed agreement required
+  confidence: high
+  source:
+  - terms-of-use
+  - documentation
+  - probes
+  generated: '2026-07-26'
+  method: manual
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+tags:
+- Real Estate
+- United Kingdom
+- Property Listings
+- Property Portal
+- PropTech
+- Rentals
+- Estate Agents
+- Data Feed
+- New Homes
+- Commercial Real Estate
+created: '2026-07-26'
+modified: '2026-07-26'
+specificationVersion: '0.19'
+apis:
+- aid: onthemarket:onthemarket-real-time-datafeed-api
+  name: OnTheMarket Real Time Datafeed (RTDF) API
+  description: >-
+    OnTheMarket's member-only feed API for estate-agency CRM software. It is
+    modelled on the Rightmove Real Time Datafeed (RTDF/ADF) specification, with
+    OnTheMarket-specific differences in request and response fields and an
+    "Only With Us" capability for exclusive listings; overseas properties are
+    not supported. The service host realtime-api.onthemarket.com is live and
+    presents an OnTheMarket TLS certificate (subject O=Agents' Mutual Limited,
+    CN=*.onthemarket.com), and the enquiry endpoint
+    /v1/property/getbranchemails is published in third-party CRM vendor setup
+    instructions. OnTheMarket publishes no documentation, no OpenAPI, no
+    Swagger and no OData $metadata for it: every path on the host returns HTTP
+    404 with an empty body to an anonymous client, and there is no
+    self-service signup. Access requires an existing OnTheMarket agent
+    membership with a data feed in place, arranged through OnTheMarket support
+    — a Rightmove-style RTDF connection using a client certificate over TLS.
+    Listed here as a real but undocumented and member-gated surface, with no
+    machine-readable contract available to harvest.
+  humanURL: https://expert.onthemarket.com/contact-us/
+  baseURL: https://realtime-api.onthemarket.com/v1
+  tags:
+  - Data Feed
+  - Property Listings
+  - Leads
+  - Estate Agents
+  properties:
+  - type: Website
+    url: https://expert.onthemarket.com/
+  - type: Support
+    url: https://expert.onthemarket.com/contact-us/
+common:
+- type: Website
+  url: https://www.onthemarket.com/
+- type: About
+  url: https://www.onthemarket.com/about/
+- type: TermsOfService
+  url: https://www.onthemarket.com/terms/
+- type: Blog
+  url: https://www.onthemarket.com/content/
+- type: Partners
+  url: https://expert.onthemarket.com/our-partners/
+- type: Support
+  url: https://expert.onthemarket.com/contact-us/
+- type: SignUp
+  url: https://expert.onthemarket.com/join-us/
+- type: Login
+  url: https://expert.onthemarket.com/apps/login
+- type: GitHubOrganization
+  url: https://github.com/OnTheMarket
+- type: LinkedIn
+  url: https://www.linkedin.com/company/onthemarket/
+- type: ParentCompany
+  url: https://www.costargroup.com/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

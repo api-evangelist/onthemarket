@@ -1,0 +1,480 @@
+aid: onthemarket
+name: OnTheMarket
+review:
+  question: What is OnTheMarket's real, publicly reachable API surface, what does a
+    developer have to sign or join to use it, and what is its RESO posture?
+  date: '2026-07-26'
+  reviewer: API Evangelist
+  homeMarket: United Kingdom
+  tier: portal-marketplace
+  primaryDomain: onthemarket.com
+  summary: |
+    OnTheMarket has no public developer surface at all. Every conventional
+    developer entry point was probed and none exists: developer., developers.,
+    api., docs., realtime., feeds., datafeed., partner. and partners.
+    onthemarket.com do not resolve; /developers, /api, /docs, /openapi.json,
+    /swagger.json, /api-docs, /$metadata and /.well-known/openid-configuration
+    all return HTTP 404 on www.onthemarket.com. There is no documentation site,
+    no sandbox, no signup form, no SDK, no Postman collection, no changelog and
+    no status page.
+
+    What does exist is a real, live, member-only integration host. The
+    OnTheMarket Real Time Datafeed (RTDF) is served from
+    realtime-api.onthemarket.com — the host resolves to three AWS eu-west-1
+    addresses and presents a genuine OnTheMarket TLS certificate (subject
+    C=GB, L=Aldershot, O=Agents' Mutual Limited, CN=*.onthemarket.com, issued
+    by DigiCert, valid 2026-01-15 to 2027-02-15). Every path on it returns
+    HTTP 404 with Content-Length 0 to an anonymous caller, including the one
+    endpoint whose path is publicly known from a third-party CRM vendor's
+    setup instructions, /v1/property/getbranchemails. There is no contract to
+    harvest — no OpenAPI, no Swagger, no WSDL, no OData $metadata — because
+    OnTheMarket's developer guide is distributed under agreement rather than
+    published.
+
+    The one incidental machine-readable surface on OnTheMarket infrastructure
+    is not a product API at all: expert.onthemarket.com is a WordPress site
+    with its default WP REST API left open (HTTP 200, 17 namespaces, 276
+    routes). It describes the marketing CMS, not property data, and is
+    excluded from apis[] for that reason.
+
+resoPosture:
+  certified: false
+  posture: No RESO reference found anywhere on OnTheMarket's properties. RESO is a
+    North American (NAR/MLS) construct and the United Kingdom has no MLS to
+    certify against, so there is no certification layer in this market at all.
+  webApiCertification: none found
+  dataDictionaryCertification: none found
+  dataDictionaryVersion: null
+  directoryEvidence: |
+    https://www.reso.org/certificates/ was fetched anonymously (HTTP 200) and a
+    case-insensitive grep for "onthemarket" and "united kingdom" returned zero
+    matches. https://certification.reso.org/ returned HTTP 400 to an anonymous
+    client and served no directory content (1,312-byte error body, zero matches
+    for onthemarket). No RESO certification claim appears on onthemarket.com,
+    expert.onthemarket.com, or in any OnTheMarket press material reviewed.
+  odataEndpoint: none
+  metadataDocument: |
+    Probed https://www.onthemarket.com/$metadata (HTTP 404) and
+    https://realtime-api.onthemarket.com/$metadata (HTTP 404). No OData service
+    document or $metadata exists. The RTDF is not OData — it is a
+    Rightmove-derived HTTP feed format, and UK portal bulk listing exchange
+    otherwise runs on the Rightmove V3 BLM flat-file convention, which is not a
+    formal standard and has no certification body behind it.
+  universalPropertyIdentifier: |
+    No UPI. OnTheMarket identifies listings with its own opaque numeric property
+    identifiers in consumer URLs (/properties/<id>/) and, in the RTDF, with
+    agent-side branch and property references inherited from the Rightmove ADF
+    field model. Nothing maps to a RESO Universal Property Identifier.
+  marketNote: |
+    This is the expected UK answer and is not a failing. The UK has no MLS and
+    therefore nothing for RESO to certify. Residential listings are controlled
+    by two dominant portals — Rightmove and Zoopla, with OnTheMarket third —
+    and reach them through agency CRM software (Reapit, Alto/Jupix, Street,
+    Apex27, Dezrez) rather than a shared cooperative pool. The distinction the
+    US sector forces — certified but unreachable — cannot arise here, because
+    there is no certification to be had. The honest UK statement is: no
+    standard, no certification, and no public contract; the only interoperable
+    convention is a de facto one, the Rightmove BLM/RTDF format that
+    OnTheMarket and Openbrix also accept.
+
+accessGate:
+  gate: membership-required
+  gated: true
+  selfServe: false
+  whatYouMustSignOrJoin: |
+    You must be an OnTheMarket member estate agent, homebuilder or developer
+    with a listing agreement, or the CRM software vendor integrating on that
+    member's behalf. There is no developer programme, no API terms page, no
+    application form and no key self-issuance anywhere on any OnTheMarket
+    property. Membership is arranged commercially through
+    https://expert.onthemarket.com/join-us/, and data feeds are set up by
+    OnTheMarket support: the OnTheMarket Expert site's only published route for
+    integration is "If you have any questions relating to OnTheMarket Expert,
+    data-feeds or other technical issues, get in touch with our support team",
+    with support@onthemarket.com and 0808 1202 877 as the contacts. Once a feed
+    is in place, the vendor connects to the RTDF host with a client certificate
+    over TLS, following the OnTheMarket API Developer Guide, which is supplied
+    to integrators rather than published.
+  credentialIssuance: |
+    Not observable publicly. No token endpoint, no client registration, no
+    OAuth metadata and no OIDC discovery document are served on any
+    onthemarket.com host. Credentialing happens inside the member relationship.
+  publicTermsProhibitProgrammaticAccess: |
+    OnTheMarket's Terms of Use are unusually explicit and are themselves part
+    of the gate. Clause 3.3: "You must not use or attempt to use any automated
+    program (including, without limitation, any spider or other web crawler) to
+    access our system or this Site, or to search, display or obtain links to
+    any part of this Site, other than the home page at www.onthemarket.com
+    unless the automated program identifies itself uniquely in the User Agent
+    field and is fully compliant with the Robots Exclusion Protocol (a
+    'Permitted Program'). Any such use or attempted use of an automated program
+    (other than a Permitted Program) shall be a misuse of our system and this
+    Site." Source: https://www.onthemarket.com/terms/ (HTTP 200). The legal
+    entity named there is Agents' Mutual Limited, company number 08381458, VAT
+    GB510508239, a wholly owned subsidiary of OnTheMarket Limited (company
+    number 10887621).
+  undocumentedInternalEndpoint: |
+    Recorded for completeness and deliberately NOT listed as an API. The
+    consumer site's Next.js front end is backed by an internal JSON endpoint,
+    https://www.onthemarket.com/async/search/properties/, which returns HTTP
+    200 with application/json to an anonymous request. It is undocumented,
+    unversioned, unsupported, subject to change without notice, and using it
+    programmatically is precisely what clause 3.3 forbids. It is not a
+    developer surface and is not represented as one.
+  incidentalWordPressApi: |
+    https://expert.onthemarket.com/wp-json/ returns HTTP 200 with the default
+    WordPress REST API discovery document — 17 namespaces (wp/v2, yoast/v1,
+    forminator/v1, divi/v1, hub-connector/v1 and others) across 276 routes,
+    on a WP Engine-hosted marketing site. Real and publicly callable, but it
+    is CMS infrastructure, not an OnTheMarket product API, so it is excluded
+    from apis[].
+
+openData:
+  publishesOpenData: false
+  note: |
+    OnTheMarket publishes no open, unlicensed, publicly callable dataset. Its
+    consumer data products — sold prices (/sold-prices/, /uk-house-prices/) and
+    the free instant valuation AVM (/instant-valuation/, /property-valuation/),
+    the latter built with Property Price Advice and recalculated monthly by
+    OnTheMarket's econometrics team — are rendered as web pages for consumers,
+    not exposed as data. There is no bulk download and no licence page.
+  ukOpenLayerSitsElsewhere: |
+    The genuinely open UK property layer belongs to the public sector, not to
+    the portals: HM Land Registry Price Paid Data and ownership data under the
+    Open Government Licence, and Ordnance Survey's open addressing and mapping
+    products. This is the inverse of the US arrangement — the UK has no
+    industry standard and no cooperative, but it does have real open government
+    property APIs, and none of them come from OnTheMarket, Rightmove or Zoopla.
+    OnTheMarket's sold-price pages are downstream consumers of that public
+    data; they are not a republication of it under an open licence.
+
+authModel:
+  scheme: |
+    Not published. Consistent with the Rightmove RTDF lineage the connection is
+    mutual-TLS with a client certificate rather than a bearer token: third-party
+    CRM integrators are told their servers must support TLS 1.1/1.2 and be able
+    to make requests with SHA-1 PEM certificates, and the Rightmove ADF model
+    the OnTheMarket guide is derived from issues a private key plus X.509
+    certificate and a Network ID scoping which branches a feed may amend.
+    OnTheMarket's own certificate and identifier issuance process is not
+    documented publicly and could not be verified anonymously.
+  apiKeys: none published
+  oauth2: none published
+  openidConnect: |
+    Probed https://www.onthemarket.com/.well-known/openid-configuration
+    anonymously — HTTP 404. No OIDC discovery document is served on any
+    OnTheMarket host. The member area at https://expert.onthemarket.com/apps/login
+    (HTTP 200) is a human login, not an authorization server.
+  samlOrSso: none observed on any public host
+  confidence: |
+    Medium on the transport (mutual TLS) — inferred from the documented
+    Rightmove RTDF lineage plus CRM-vendor integration notes, not from an
+    OnTheMarket-published document. Low on any detail beyond that. Nothing here
+    should be treated as a verified OnTheMarket auth specification.
+
+apiFamily:
+  segmentationUsedByOnTheMarketItself:
+    - Property search — for sale and to rent (/for-sale/, /to-rent/)
+    - Sold prices and house price data (/sold-prices/, /uk-house-prices/)
+    - Instant valuation / AVM (/instant-valuation/, /property-valuation/)
+    - New homes and developers (/new-homes/, /new-homes/developers/)
+    - Specialist segments — retirement, student, farms/estates/land
+    - Commercial property (/for-sale/commercial/, /to-rent/commercial/),
+      partnered with sister CoStar brand LoopNet UK (loopnet.co.uk)
+    - Agent directory and member tools (OnTheMarket Expert)
+  whichOfThoseHaveAnApi: |
+    None of them, publicly. Every one of these is a consumer web surface. The
+    only API-shaped product OnTheMarket operates is the inbound/outbound member
+    data feed (RTDF) plus branch enquiry retrieval, and that is not documented
+    publicly.
+  listingsSearch: no public API
+  propertyRecords: no public API
+  valuationAVM: |
+    A real AVM exists — developed exclusively for OnTheMarket in partnership
+    with Property Price Advice, recalculated monthly — but it is delivered only
+    as a consumer web tool. No API, no pricing page, no partner documentation.
+  transactions: not offered
+  documents: not offered
+  tenancy: |
+    Formerly in scope and now gone. OnTheMarket acquired Teclet in 2021 and
+    relaunched it as OnTheMarket Software (TecCRM, TecLet, TecHub) — a lettings
+    and sales CRM with pre-tenancy and property-management workflow. CoStar
+    announced its closure in October 2024 and the division ceased operations on
+    30 June 2025. software.onthemarket.com no longer resolves. Any integration
+    surface that division had is dead.
+  payments: not offered
+
+harvest:
+  fetchDate: '2026-07-26'
+  specsHarvested: 0
+  openapiDirectory: null
+  note: |
+    Nothing was saved to openapi/ because nothing real was found. No OpenAPI,
+    Swagger, RAML, WSDL, GraphQL schema, AsyncAPI or OData $metadata document
+    is served from any OnTheMarket host. The openapi/ directory is deliberately
+    omitted rather than created empty.
+
+probes:
+  - url: https://onthemarket.com/
+    status: 200
+    note: Redirects to https://www.onthemarket.com/. Next.js consumer portal.
+      Footer copyright names CoStar Group.
+  - url: https://developer.onthemarket.com/
+    status: '000'
+    note: Does not resolve.
+  - url: https://developers.onthemarket.com/
+    status: '000'
+    note: Does not resolve.
+  - url: https://api.onthemarket.com/
+    status: '000'
+    note: Does not resolve.
+  - url: https://docs.onthemarket.com/
+    status: '000'
+    note: Does not resolve.
+  - url: https://www.onthemarket.com/developers/
+    status: 404
+  - url: https://www.onthemarket.com/api/
+    status: 404
+  - url: https://www.onthemarket.com/docs/
+    status: 404
+  - url: https://www.onthemarket.com/openapi.json
+    status: 404
+  - url: https://www.onthemarket.com/swagger.json
+    status: 404
+  - url: https://www.onthemarket.com/api-docs
+    status: 404
+  - url: 'https://www.onthemarket.com/$metadata'
+    status: 404
+  - url: https://www.onthemarket.com/.well-known/openid-configuration
+    status: 404
+  - url: https://www.onthemarket.com/.well-known/security.txt
+    status: 404
+  - url: https://www.onthemarket.com/.well-known/apis.json
+    status: 404
+  - url: https://www.onthemarket.com/llms.txt
+    status: 404
+  - url: https://www.onthemarket.com/humans.txt
+    status: 404
+  - url: https://www.onthemarket.com/sitemap.xml
+    status: 404
+  - url: https://www.onthemarket.com/graphql
+    status: 301
+    note: Redirect only; no GraphQL endpoint behind it.
+  - url: https://www.onthemarket.com/api/v1/
+    status: 404
+  - url: https://www.onthemarket.com/robots.txt
+    status: 200
+    note: Names ClaudeBot explicitly with Crawl-delay 1, blocks ULSTPropertyBot
+      entirely, and disallows /my-account/, agent contact paths, property image
+      paths and low-value facets. No Sitemap directive.
+  - url: https://www.onthemarket.com/terms/
+    status: 200
+    note: Clause 3.3 prohibits automated access to anything other than the home
+      page. Legal entity Agents' Mutual Limited (08381458).
+  - url: https://www.onthemarket.com/about/
+    status: 200
+  - url: https://www.onthemarket.com/new-homes/
+    status: 200
+  - url: https://www.onthemarket.com/to-rent/commercial/
+    status: 200
+  - url: https://www.onthemarket.com/async/search/properties/?search-type=for-sale&location-id=london
+    status: 200
+    note: Undocumented internal JSON endpoint powering the site's search UI.
+      application/json. Not a developer surface; see accessGate.
+  - url: https://www.onthemarket.com/async/search/properties/?search-type=to-rent&location-id=london
+    status: 200
+  - url: https://www.onthemarket.com/async/
+    status: 404
+  - url: https://realtime-api.onthemarket.com/
+    status: 404
+    note: LIVE OnTheMarket-operated host. DNS 52.31.27.79, 52.214.185.70,
+      63.33.251.103 (AWS eu-west-1). TLS subject C=GB, L=Aldershot,
+      O=Agents' Mutual Limited, CN=*.onthemarket.com; issuer DigiCert Global G2
+      TLS RSA SHA256 2020 CA1; valid 2026-01-15 to 2027-02-15.
+  - url: https://realtime-api.onthemarket.com/v1/
+    status: 404
+  - url: https://realtime-api.onthemarket.com/v1/property/getbranchemails
+    status: 404
+    note: Endpoint path published in third-party CRM vendor setup instructions
+      (Rycram Property Manager). Returns 404 with Content-Length 0 and no
+      WWW-Authenticate header to an anonymous GET. A POST to
+      /v1/property/sendproperty also returned 404.
+  - url: https://realtime-api.onthemarket.com/openapi.json
+    status: 404
+  - url: https://realtime-api.onthemarket.com/swagger.json
+    status: 404
+  - url: https://realtime-api.onthemarket.com/docs
+    status: 404
+  - url: 'https://realtime-api.onthemarket.com/$metadata'
+    status: 404
+  - url: https://expert.onthemarket.com/
+    status: 200
+    note: OnTheMarket Expert, the member/agent marketing site. WordPress on WP
+      Engine. Only integration route published is the support team.
+  - url: https://expert.onthemarket.com/our-partners/
+    status: 200
+    note: Names Property Academy, Estate Agency Events, Property Price Advice
+      (AVM), Callwell, and Sprift (appraisal guides, SmartMail prospecting).
+      All are commercial partnerships; none is a developer programme.
+  - url: https://expert.onthemarket.com/contact-us/
+    status: 200
+    note: "If you have any questions relating to OnTheMarket Expert, data-feeds
+      or other technical issues, get in touch with our support team."
+  - url: https://expert.onthemarket.com/join-us/
+    status: 200
+  - url: https://expert.onthemarket.com/apps/login
+    status: 200
+    note: Human member login. Not an authorization server.
+  - url: https://expert.onthemarket.com/wp-json/
+    status: 200
+    note: Default WordPress REST API, 17 namespaces / 276 routes. CMS
+      infrastructure, excluded from apis[].
+  - url: https://expert.onthemarket.com/robots.txt
+    status: 200
+  - url: https://expert.onthemarket.com/api/
+    status: 404
+  - url: https://expert.onthemarket.com/developers/
+    status: 404
+  - url: https://expert.onthemarket.com/data-feeds/
+    status: 404
+  - url: https://software.onthemarket.com/
+    status: '000'
+    note: Resolves to WP Engine (wp.wpenginepowered.com) but serves nothing.
+      OnTheMarket Software ceased operations 30 June 2025.
+  - url: https://partner.onthemarket.com/
+    status: '000'
+  - url: https://partners.onthemarket.com/
+    status: '000'
+  - url: https://feeds.onthemarket.com/
+    status: '000'
+  - url: https://datafeed.onthemarket.com/
+    status: '000'
+  - url: https://data.onthemarket.com/
+    status: '000'
+  - url: https://integrations.onthemarket.com/
+    status: '000'
+  - url: https://adfapi.onthemarket.com/
+    status: '000'
+    note: NXDOMAIN. Also NXDOMAIN - adf., rtdf., api2., services., ws.
+  - url: https://status.onthemarket.com/
+    status: '000'
+    note: No status page.
+  - url: https://help.onthemarket.com/
+    status: '000'
+  - url: https://support.onthemarket.com/
+    status: '000'
+  - url: https://github.com/OnTheMarket
+    status: 200
+    note: Org id 13598614, one public repo (sumologic-logback-appender, last
+      pushed 2018). Not an API surface.
+  - url: https://www.linkedin.com/company/onthemarket/
+    status: 200
+  - url: https://www.reso.org/certificates/
+    status: 200
+    note: Fetched and searched for "onthemarket" and "united kingdom" — zero
+      matches.
+  - url: https://certification.reso.org/
+    status: 400
+    note: Rejects anonymous clients; no directory content returned.
+
+webhooksEventsSdksPostman:
+  webhooks: |
+    None published. The RTDF's enquiry delivery is pull-based — CRM vendors
+    poll /v1/property/getbranchemails for branch enquiries — which is the
+    inverse of a webhook. No callback registration surface is documented.
+  events: No event bus, no streaming, no AsyncAPI document, no WebSocket surface.
+  sdks: None. No official client libraries in any language. What exists on
+    GitHub, npm and PyPI under the OnTheMarket name is third-party scraping
+    tooling built against the consumer site, which the Terms of Use forbid.
+  postman: No official Postman collection or public workspace found.
+  changelog: None published.
+  statusPage: None. status.onthemarket.com does not resolve.
+  rateLimits: Not documented anywhere.
+  sandbox: None.
+
+corporateContext:
+  founded: 2013, by a group of estate agents, as Agents' Mutual Limited
+  listing: Listed on AIM as OnTheMarket plc
+  acquisition: |
+    CoStar Group announced a recommended cash offer of 110p per share on
+    2023-10-19, valuing OnTheMarket at approximately GBP 99 million, and
+    completed the acquisition on 2023-12-12 with over 97% shareholder support
+    by value. OnTheMarket is now a wholly owned CoStar Group business.
+  divestments: |
+    OnTheMarket Software (formerly Teclet, acquired 2021; brands TecCRM,
+    TecLet, TecHub) was announced for closure in October 2024 and ceased
+    operations on 30 June 2025.
+  siblingBrands: |
+    Within CoStar Group, UK commercial listings run through LoopNet UK
+    (loopnet.co.uk), which OnTheMarket's commercial section links to directly.
+  whyItMattersForApiPosture: |
+    CoStar ownership matters because the parent is a US data company that does
+    operate large licensed data products. None of that has surfaced as a public
+    OnTheMarket developer programme. Two and a half years after acquisition,
+    OnTheMarket's API posture is unchanged: member feeds only, nothing public.
+
+findings:
+  - No public developer portal exists, in any form, on any OnTheMarket host.
+    This is not a portal that was retired; there is no evidence one ever existed.
+  - The RTDF host realtime-api.onthemarket.com is genuinely live and genuinely
+    OnTheMarket's, proven by its TLS certificate, and it answers every
+    anonymous request with a bare 404. A real API with a zero-byte public
+    footprint is the defining shape of this sector outside the US.
+  - Zero machine-readable contracts were harvestable. The OnTheMarket API
+    Developer Guide exists but is distributed to integrators under agreement,
+    not published at a URL.
+  - Absence is the finding across the board - no RESO, no OData, no UPI, no
+    OpenAPI, no SDKs, no Postman, no webhooks, no changelog, no status page,
+    no rate limits, no sandbox, no OIDC discovery, no security.txt.
+  - OnTheMarket goes further than its rivals in closing the door - its Terms of
+    Use clause 3.3 prohibits automated access to every page except the home
+    page, which makes even the undocumented /async/ JSON endpoint off limits.
+  - The interoperability that does exist in this market is a de facto
+    convention, not a standard - the Rightmove BLM/RTDF format, which
+    OnTheMarket and Openbrix adopted because Rightmove's scale made it the
+    default. There is no governing body, no certification and no version
+    registry behind it.
+  - The UK inverts the US arrangement exactly as expected. The US has a
+    mandated machine-readable contract (RESO) guarding licensed private data.
+    The UK has no standard and no certification for private listings, but real
+    open government property data from HM Land Registry and Ordnance Survey.
+    OnTheMarket sits entirely on the closed side of that split.
+
+sources:
+  - url: https://www.onthemarket.com/
+    type: Website
+    note: Consumer portal; product sections and CoStar Group footer.
+  - url: https://www.onthemarket.com/terms/
+    type: TermsOfService
+    note: Clause 3.3 automated-access prohibition; Agents' Mutual Limited entity.
+  - url: https://expert.onthemarket.com/
+    type: Documentation
+    note: Member/agent site; data-feed questions routed to support.
+  - url: https://expert.onthemarket.com/our-partners/
+    type: Reference
+    note: Partner list including the Property Price Advice AVM and Sprift tools.
+  - url: https://realtime-api.onthemarket.com/v1/property/getbranchemails
+    type: BaseURL
+    note: Live member-only RTDF host; 404 to anonymous callers.
+  - url: https://www.reso.org/certificates/
+    type: Reference
+    note: RESO certified-organization page; no UK entries, no OnTheMarket.
+  - url: https://www.costargroup.com/press-room/2023/costar-group-completes-acquisition-onthemarketcom-overwhelming-97-shareholder
+    type: PressRelease
+    note: Acquisition completion, 2023-12-12, 97% shareholder support.
+  - url: https://propertyindustryeye.com/eye-newsflash-onthemarket-software-formerly-teclet-to-cease-operations/
+    type: Reference
+    note: OnTheMarket Software ceasing operations 30 June 2025.
+
+actions:
+  apisYmlCreated: true
+  apisListed: 1
+  specsHarvested: 0
+  openapiDirectory: null
+  status: built-stub
+  reason: |
+    Identity captured in full and the real member-only API host evidenced and
+    recorded, but there is no public developer portal and no machine-readable
+    contract to harvest. Classified built-stub rather than built because
+    nothing on this provider is reachable by a developer without an
+    OnTheMarket agent membership and a data-feed agreement.
