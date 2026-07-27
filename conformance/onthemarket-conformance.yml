@@ -1,0 +1,107 @@
+generated: '2026-07-26'
+method: derived
+source: review.yml probes + third-party CRM integrator documentation
+note: |
+  Derived assessment, not an OnTheMarket claim. OnTheMarket publishes no
+  compliance or conformance statement of any kind, so no type: Compliance
+  pointer is wired. Every "conforms: false" below is a verified negative from
+  an anonymous probe recorded in review.yml, not an assumption. The single
+  positive is a de facto industry convention with no governing body, no
+  certification and no version registry behind it.
+standards:
+- id: rightmove-rtdf-adf
+  name: Rightmove Real Time Datafeed / Adaptor Data Feed (ADF) convention
+  conforms: partial
+  formal_standard: false
+  evidence: |
+    OnTheMarket's Real Time Datafeed is documented by CRM vendors as being
+    modelled on the Rightmove RTDF/ADF specification, with OnTheMarket-specific
+    request and response field differences, an "Only With Us" exclusive-listing
+    capability and no overseas-property support. Endpoint shape
+    /v1/property/getbranchemails matches the Rightmove verb-per-path style.
+    Rightmove's format is the UK's de facto listing-exchange convention because
+    of Rightmove's scale; it has no standards body, no conformance suite and no
+    published version registry.
+  source: https://realtime-api.onthemarket.com/v1/property/getbranchemails
+- id: reso-web-api
+  name: RESO Web API
+  conforms: false
+  evidence: |
+    https://www.reso.org/certificates/ fetched anonymously (HTTP 200); grep for
+    "onthemarket" and "united kingdom" returned zero matches. No RESO reference
+    on any OnTheMarket property. RESO is a North American NAR/MLS construct and
+    the UK has no MLS to certify against.
+- id: reso-data-dictionary
+  name: RESO Data Dictionary
+  conforms: false
+  evidence: No RESO Data Dictionary version claimed anywhere; no field mapping
+    published.
+- id: odata-v4
+  name: OData 4.0
+  conforms: false
+  evidence: 'https://www.onthemarket.com/$metadata and
+    https://realtime-api.onthemarket.com/$metadata both HTTP 404. No service
+    document, no $metadata.'
+- id: openapi
+  name: OpenAPI
+  conforms: false
+  evidence: /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json,
+    /api-docs, /docs, /redoc and /swagger-ui.html all HTTP 404 on
+    realtime-api.onthemarket.com and www.onthemarket.com.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: No event, streaming or webhook surface exists. RTDF enquiry delivery
+    is pull-based polling of /v1/property/getbranchemails.
+- id: graphql
+  name: GraphQL
+  conforms: false
+  evidence: https://realtime-api.onthemarket.com/graphql HTTP 404;
+    https://www.onthemarket.com/graphql is a redirect with no endpoint behind it.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: No token endpoint, no client registration, no
+    /.well-known/oauth-authorization-server on any host (all 404).
+- id: openid-connect
+  name: OpenID Connect Discovery
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every OnTheMarket
+    host. expert.onthemarket.com/apps/login is a human login form, not an
+    authorization server.
+- id: mutual-tls
+  name: Mutual TLS client authentication
+  conforms: unverified
+  evidence: |
+    Inferred from the Rightmove RTDF lineage and third-party CRM integrator
+    notes (integrating servers must support TLS 1.1/1.2 and present SHA-1 PEM
+    certificates). Could not be verified anonymously: the host returns a bare
+    404 with no WWW-Authenticate header. Confidence medium on transport, low on
+    any detail beyond it.
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: Anonymous requests return HTTP 404 with Content-Length 0 and no
+    response body of any media type.
+- id: rfc9116-security-txt
+  name: RFC 9116 security.txt
+  conforms: false
+  evidence: well-known/onthemarket-well-known.yml — 404 on all three hosts.
+- id: rfc9727-api-catalog
+  name: RFC 9727 /.well-known/api-catalog
+  conforms: false
+  evidence: well-known/onthemarket-well-known.yml — 404 on all three hosts.
+- id: rfc8594-sunset-header
+  name: RFC 8594 Sunset HTTP header
+  conforms: false
+  evidence: No deprecation or sunset policy published; no versioned response
+    headers observable anonymously.
+market_context: |
+  This is the expected United Kingdom answer and is not a failing specific to
+  OnTheMarket. The UK residential market has no MLS, no cooperative listing
+  pool and therefore no certification layer at all. Interoperability between
+  agency CRM systems and the portals runs on Rightmove's BLM/RTDF file and feed
+  conventions, adopted by OnTheMarket and Openbrix because Rightmove's scale
+  made them the default. The certified-but-unreachable pattern that the US
+  sector produces cannot arise here, because there is nothing to be certified
+  against.

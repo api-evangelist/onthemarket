@@ -1,0 +1,53 @@
+generated: '2026-07-26'
+method: derived
+source: review.yml probes + apis.yml baseURL
+note: |
+  OnTheMarket publishes no versioning policy, no deprecation policy, no SLA,
+  no changelog and no status page. The only lifecycle signal that exists is the
+  version segment in the RTDF base path. Recorded as a verified negative: no
+  type: StatusPage and no type: Deprecation pointer is wired in apis.yml,
+  because neither page exists.
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: https://realtime-api.onthemarket.com/v1 — the version segment
+    appears in the base path and in the one publicly-known endpoint,
+    /v1/property/getbranchemails.
+  policy_published: false
+  docs: null
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: unknown
+  note: No deprecation or sunset policy is published, and no RFC 8594 Sunset or
+    Deprecation header can be observed anonymously because every path returns a
+    bare 404.
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status_page:
+  url: null
+  published: false
+  evidence: status.onthemarket.com does not resolve (NXDOMAIN); no status or
+    uptime page found on any OnTheMarket host.
+changelog:
+  url: null
+  published: false
+support_window:
+  published: false
+  note: Feed changes are communicated to integrators through the OnTheMarket API
+    Developer Guide and the support team, which are distributed under agreement
+    rather than published.
+deprecated_operations: []
+discontinued_products:
+- name: OnTheMarket Software (formerly Teclet — TecCRM, TecLet, TecHub)
+  acquired: '2021'
+  closure_announced: '2024-10'
+  ceased: '2025-06-30'
+  evidence: software.onthemarket.com no longer serves content; closure reported
+    October 2024, operations ceased 30 June 2025. Any integration surface that
+    division exposed is dead.
+related:
+  review: review.yml
+  conformance: conformance/onthemarket-conformance.yml

@@ -1,0 +1,63 @@
+generated: '2026-07-26'
+method: searched
+source: npm registry search, PyPI JSON API, apis.yml SDK/SourceCode links
+result: no-first-party-packages
+note: |
+  Registry sweep on 2026-07-26 across npm, PyPI, RubyGems, Packagist, NuGet,
+  Maven Central, pkg.go.dev and crates.io. OnTheMarket publishes NO official
+  client library in any language, which follows from there being no public API
+  to wrap. The only packages carrying the OnTheMarket name are third-party
+  scrapers built against the consumer website — which OnTheMarket's Terms of
+  Use clause 3.3 expressly prohibits. They are recorded here for completeness
+  with official: false, and NO type: SDKs pointer is wired in apis.yml because
+  no first-party SDK exists.
+packages: []
+third_party:
+- language: javascript
+  registry: npm
+  name: onthemarket-scraper
+  url: https://www.npmjs.com/package/onthemarket-scraper
+  version: 0.2.2
+  last_published: '2022-06-22'
+  author: Joe Reeve
+  repository: https://github.com/ISNIT0/OnTheMarket-Scraper
+  license: ISC
+  official: false
+  note: Scrapes the consumer site; not an OnTheMarket product and contrary to the
+    site Terms of Use.
+- language: javascript
+  registry: npm
+  name: n8n-nodes-onthemarket-properties-scraper
+  url: https://www.npmjs.com/package/n8n-nodes-onthemarket-properties-scraper
+  version: 0.1.0
+  last_published: '2026-06-22'
+  author: vitbond
+  license: MIT
+  official: false
+  note: Commercial pay-per-result n8n scraping node for OnTheMarket listings.
+    Third-party, contrary to the site Terms of Use.
+registries_probed:
+- registry: npm
+  query: onthemarket
+  official_hits: 0
+- registry: pypi
+  query: onthemarket, onthemarket-api, otm-api
+  official_hits: 0
+  status: 404 for every candidate name
+- registry: rubygems
+  official_hits: 0
+- registry: packagist
+  official_hits: 0
+- registry: nuget
+  official_hits: 0
+- registry: maven-central
+  official_hits: 0
+- registry: pkg.go.dev
+  official_hits: 0
+- registry: crates.io
+  official_hits: 0
+github:
+  org: https://github.com/OnTheMarket
+  public_repos: 1
+  note: The single public repository (sumologic-logback-appender, last pushed
+    2018) is an observability fork, not a client library.

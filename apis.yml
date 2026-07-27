@@ -44,7 +44,7 @@ accessModel:
   - probes
   generated: '2026-07-26'
   method: manual
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/onthemarket.png
 tags:
 - Real Estate
 - United Kingdom
@@ -92,14 +92,39 @@ apis:
   - type: Support
     url: https://expert.onthemarket.com/contact-us/
 common:
+- type: DomainSecurity
+  url: security/onthemarket-domain-security.yml
+- type: Conformance
+  name: Standards conformance assessment (derived)
+  url: conformance/onthemarket-conformance.yml
+- type: Lifecycle
+  name: Versioning, deprecation, SLA and status posture
+  url: lifecycle/onthemarket-lifecycle.yml
+- type: Packages
+  name: Client-library survey (no first-party packages)
+  url: packages/onthemarket-packages.yml
+- type: LLMsTxt
+  name: API Evangelist-generated llms.txt for OnTheMarket
+  url: llms/onthemarket-llms.txt
+- type: LLMsTxt
+  name: OnTheMarket Expert llms.txt (published by OnTheMarket, saved verbatim)
+  url: https://expert.onthemarket.com/llms.txt
 - type: Website
   url: https://www.onthemarket.com/
 - type: About
   url: https://www.onthemarket.com/about/
 - type: TermsOfService
   url: https://www.onthemarket.com/terms/
+- type: PrivacyPolicy
+  name: Privacy notice (redirects to the CoStar Group global privacy notice)
+  url: https://www.onthemarket.com/privacy/
 - type: Blog
   url: https://www.onthemarket.com/content/
+- type: BlogRSS
+  url: https://www.onthemarket.com/content/feed/
+- type: HelpCenter
+  name: OnTheMarket Expert Help Centre (member-facing)
+  url: https://expert.onthemarket.com/help-centre/
 - type: Partners
   url: https://expert.onthemarket.com/our-partners/
 - type: Support

@@ -1,0 +1,57 @@
+generated: '2026-07-26'
+method: probed
+source: anonymous HTTPS probes of every OnTheMarket host in apis.yml
+result: none-found
+note: |
+  Every /.well-known/ path was probed anonymously on all three live OnTheMarket
+  hosts on 2026-07-26 and none returned a document. OnTheMarket serves no
+  security.txt (RFC 9116), no OIDC discovery document, no OAuth authorization
+  server or protected-resource metadata (RFC 8414 / RFC 9728), no api-catalog
+  (RFC 9727) and no ai-plugin manifest. The two 301s on www are the Next.js
+  front end appending a trailing slash; the redirect target then returns 404.
+  This is recorded as a verified negative, not as a discovery surface, and no
+  WellKnown pointer is wired in apis.yml because nothing was found.
+hosts:
+- host: https://www.onthemarket.com
+  role: consumer portal
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 301
+    final_status: 404
+    final_url: https://www.onthemarket.com/.well-known/openid-configuration/
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+    final_status: 404
+  - path: /.well-known/api-catalog
+    status: 301
+    final_status: 404
+    final_url: https://www.onthemarket.com/.well-known/api-catalog/
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://expert.onthemarket.com
+  role: member/agent site (WordPress on WP Engine)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+- host: https://realtime-api.onthemarket.com
+  role: member-only Real Time Datafeed (RTDF) host
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+related:
+  domain_security: security/onthemarket-domain-security.yml
+  review: review.yml
