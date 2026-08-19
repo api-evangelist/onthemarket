@@ -58,7 +58,7 @@ tags:
 - Commercial Real Estate
 created: '2026-07-26'
 modified: '2026-07-26'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: onthemarket:onthemarket-real-time-datafeed-api
   name: OnTheMarket Real Time Datafeed (RTDF) API
