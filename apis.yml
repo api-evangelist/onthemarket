@@ -30,6 +30,17 @@ description: >-
   Survey — and none of it comes from the portals. OnTheMarket's own Terms of
   Use go further than most and expressly forbid automated access to any page
   other than the home page.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: membership-required
