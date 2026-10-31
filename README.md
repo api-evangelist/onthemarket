@@ -1,4 +1,4 @@
-# OnTheMarket (onthemarket)
+# OnTheMarket
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,79 +66,87 @@
 
 OnTheMarket is the third-largest residential property portal in the United Kingdom, operating onthemarket.com. It was founded in 2013 by Agents' Mutual Limited as an agent-owned challenger to Rightmove and Zoopla, listed on AIM as OnTheMarket plc, and was acquired outright by CoStar Group in December 2023 for approximately GBP 99 million. In a market with no MLS and no cooperative listing standard, OnTheMarket sits at the demand end of the value chain: consumers search the portal, and listings arrive from member estate agents' CRM systems rather than from a shared data pool. Its API posture is honest and narrow. There is no public developer portal — developer., developers., api. and docs.onthemarket.com do not resolve, and /developers, /api, /docs, /openapi.json, /swagger.json and /api-docs all return 404 on the main site. What does exist is a member-only integration surface: the OnTheMarket Real Time Datafeed (RTDF), a Rightmove-RTDF-compatible feed API served from the live, OnTheMarket-operated host realtime-api.onthemarket.com, used by agency CRM vendors to push listings and pull branch enquiries on behalf of member agents. No machine-readable contract for it is published anywhere; OnTheMarket's developer guide is distributed under agreement, and every path on the host returns 404 to an anonymous caller. There is no RESO Web API or Data Dictionary certification, no OData $metadata document and no Universal Property Identifier anywhere in the stack — RESO is a North American construct and the UK has never adopted it, so "certified but unreachable" does not apply here; there is no certification layer in this market at all. OnTheMarket publishes no open data. The genuinely open UK property layer belongs to the public sector — HM Land Registry Price Paid Data and Ordnance Survey — and none of it comes from the portals. OnTheMarket's own Terms of Use go further than most and expressly forbid automated access to any page other than the home page.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/onthemarket/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/onthemarket/refs/heads/main/apis.yml)
+**Areas:** Real Estate · United Kingdom · Property Listings · Property Portal · PropTech · Rentals · Estate Agents · Data Feed · New Homes · Commercial Real Estate
 
-## Tags
+## OnTheMarket on APIs.io
 
-- Real Estate
-- United Kingdom
-- Property Listings
-- Property Portal
-- PropTech
-- Rentals
-- Estate Agents
-- Data Feed
-- New Homes
-- Commercial Real Estate
+Everything profiled for OnTheMarket is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/onthemarket/](https://apis.io/providers/onthemarket/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (1)
 
-- **Created:** 2026-07-26
-- **Modified:** 2026-07-26
+- [OnTheMarket Real Time Datafeed (RTDF) API](https://apis.io/apis/onthemarket/onthemarket-real-time-datafeed-api/) — OnTheMarket's member-only feed API for estate-agency CRM software. It is modelled on the Rightmove Real Time Datafeed (RTDF/ADF) specification, with…
 
-## APIs
+### Published properties
 
-### OnTheMarket Real Time Datafeed (RTDF) API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-OnTheMarket's member-only feed API for estate-agency CRM software. It is modelled on the Rightmove Real Time Datafeed (RTDF/ADF) specification, with OnTheMarket-specific differences in request and response fields and an "Only With Us" capability for exclusive listings; overseas properties are not supported. The service host realtime-api.onthemarket.com is live and presents an OnTheMarket TLS certificate (subject O=Agents' Mutual Limited, CN=*.onthemarket.com), and the enquiry endpoint /v1/property/getbranchemails is published in third-party CRM vendor setup instructions. OnTheMarket publishes no documentation, no OpenAPI, no Swagger and no OData $metadata for it: every path on the host returns HTTP 404 with an empty body to an anonymous client, and there is no self-service signup. Access requires an existing OnTheMarket agent membership with a data feed in place, arranged through OnTheMarket support — a Rightmove-style RTDF connection using a client certificate over TLS. Listed here as a real but undocumented and member-gated surface, with no machine-readable contract available to harvest.
+#### Security (1)
 
-- **Human URL:** [https://expert.onthemarket.com/contact-us/](https://expert.onthemarket.com/contact-us/)
-- **Base URL:** `https://realtime-api.onthemarket.com/v1`
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Onthemarket Domain Security](https://apis.io/security/onthemarket/onthemarket-domain-security/)
 
-- Data Feed
-- Property Listings
-- Leads
-- Estate Agents
+## Where to find this API
 
-#### Properties
-
-- [Website](https://expert.onthemarket.com/)
-- [Support](https://expert.onthemarket.com/contact-us/)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.onthemarket.com/)
-- [About](https://www.onthemarket.com/about/)
-- [Terms of Service](https://www.onthemarket.com/terms/)
-- [Blog](https://www.onthemarket.com/content/)
-- [Partners](https://expert.onthemarket.com/our-partners/)
+- [Sign up](https://expert.onthemarket.com/join-us/)
 - [Support](https://expert.onthemarket.com/contact-us/)
-- [Sign Up](https://expert.onthemarket.com/join-us/)
-- [Login](https://expert.onthemarket.com/apps/login)
-- [GitHub Organization](https://github.com/OnTheMarket)
-- [LinkedIn](https://www.linkedin.com/company/onthemarket/)
-- [Parent Company](https://www.costargroup.com/)
+- [Blog](https://www.onthemarket.com/content/)
+- [Terms of service](https://www.onthemarket.com/terms/)
+- [Privacy policy](https://www.onthemarket.com/privacy/)
+- [GitHub](https://github.com/OnTheMarket)
 
-## RESO Posture
+## API Evangelist rating
 
-**Certified:** No. **Posture:** No RESO reference found anywhere on OnTheMarket's properties.
+**Kin Score 16.4** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-RESO is a North American (NAR/MLS) construct and the United Kingdom has no MLS to certify against. `https://www.reso.org/certificates/` was fetched anonymously (HTTP 200) and contains no reference to OnTheMarket or to any United Kingdom organization; `https://certification.reso.org/` returned HTTP 400 to an anonymous client. No OData service document or `$metadata` exists — probes of `https://www.onthemarket.com/$metadata` and `https://realtime-api.onthemarket.com/$metadata` both returned HTTP 404. There is no Universal Property Identifier; OnTheMarket uses its own opaque property identifiers. The only interoperable convention in this market is a de facto one — the Rightmove BLM/RTDF format that OnTheMarket and Openbrix also accept — with no governing body, no certification and no version registry behind it.
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 7.1 |
+| Access clarity | 34.2 |
 
-## Access Gate
+**Agent readiness 0.0** — human-only
 
-**Gate:** `membership-required` — you must be an OnTheMarket member estate agent, homebuilder or developer with a listing agreement, or the CRM software vendor integrating on that member's behalf. There is no developer programme, no API terms page, no application form and no key self-issuance on any OnTheMarket property. Membership is arranged commercially via [expert.onthemarket.com/join-us](https://expert.onthemarket.com/join-us/); data feeds are set up by OnTheMarket support (support@onthemarket.com, 0808 1202 877). The Terms of Use are themselves part of the gate — clause 3.3 prohibits automated access to any page other than the home page.
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-## Open Data
+**Regulatory alignment 18.6** — Horizontal (data, software, accessibility, platform)
 
-**None.** OnTheMarket publishes no open, unlicensed, publicly callable dataset. Sold prices and the free instant-valuation AVM (built with Property Price Advice) are consumer web pages, not data products. The genuinely open UK property layer belongs to the public sector — HM Land Registry Price Paid Data under the Open Government Licence and Ordnance Survey's open addressing and mapping products — and none of it comes from the portals.
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/onthemarket/](https://apis.io/providers/onthemarket/).
 
-## Auth Model
+## How this profile is made
 
-Not published. Consistent with its Rightmove RTDF lineage, the connection is mutual TLS with a client certificate rather than a bearer token; integrators are told to support TLS 1.1/1.2 and SHA-1 PEM certificates. No API keys, no OAuth 2.0, no SAML and no OIDC discovery document are served on any OnTheMarket host (`/.well-known/openid-configuration` returned HTTP 404).
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-## Maintainers
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for OnTheMarket: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-- **Kin Lane** — kin@apievangelist.com
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/onthemarket/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
